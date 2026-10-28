@@ -16,6 +16,8 @@ spec:
       - name: calculator
         image: lakshmanan007/shopping-calc:latest
         imagePullPolicy: IfNotPresent
+        tty: true
+        stdin: true
 ---
 apiVersion: v1
 kind: Service
