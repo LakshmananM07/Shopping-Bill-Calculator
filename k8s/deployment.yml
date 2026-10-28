@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopping-calculator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shopping-calculator
+  template:
+    metadata:
+      labels:
+        app: shopping-calculator
+    spec:
+      containers:
+      - name: calculator
+        image: lakshmanan007/shopping-calc:latest
+        imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopping-calculator-service
+spec:
+  type: NodePort
+  selector:
+    app: shopping-calculator
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30005
