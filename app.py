@@ -1,15 +1,20 @@
-def calculate_total(price, quantity):
-    if price < 0 or quantity < 0:
-        raise ValueError("Values cannot be negative")
-    return round(price * quantity, 2)
+def calculate_total(price, quantity, discount_percentage=0):
+    if price < 0 or quantity < 0 or discount_percentage < 0 or discount_percentage > 100:
+        raise ValueError("Invalid parameters provided")
+    
+    subtotal = price * quantity
+    discount_amount = subtotal * (discount_percentage / 100)
+    return round(subtotal - discount_amount, 2)
 
 def menu():
-    print("\n--- Shopping Bill Calculator ---")
+    print("\n--- Shopping Bill Calculator (v2 with Discount) ---")
     try:
         price = float(input("Enter item price: "))
         quantity = int(input("Enter item quantity: "))
-        total = calculate_total(price, quantity)
-        print(f"Total Bill: ${total}")
+        discount = float(input("Enter discount percentage (0-100): "))
+        
+        total = calculate_total(price, quantity, discount)
+        print(f"Total Bill (after discount): ${total}")
     except ValueError as e:
         print(f"Invalid input: {e}")
 
